@@ -1,37 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 1. Set Up the Project (If Not Done Yet)
 
-## Getting Started
+📌 Goal: Initialize Next.js, Tailwind CSS, Prisma, Firebase, WebSockets, and Auth.
 
-First, run the development server:
+npx create-next-app@latest . --ts --eslint --tailwind --app
+npm install zustand fabric tailwind-merge
+npm install prisma @prisma/client
+npx prisma init
+🔹 Set up .env with PostgreSQL connection.
+🔹 Run npx prisma db push after setting up schema.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# 2. Implement Authentication (NextAuth.js)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📌 Goal: Allow users to sign in via Google OAuth.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Install NextAuth:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm install next-auth
+Configure NextAuth (/pages/api/auth/[...nextauth].ts).
 
-## Learn More
+Test Google OAuth login.
 
-To learn more about Next.js, take a look at the following resources:
+# 3. Backend: Set Up Express Server with WebSockets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📌 Goal: Create a real-time WebSocket server to handle live collaboration.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Install dependencies:
 
-## Deploy on Vercel
+npm install express socket.io cors
+Create a WebSocket server in server.ts.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Handle WebSocket events like drawing, erasing, user joining, etc.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Team-Canvas
+# 4. Frontend: Create Canvas Component
+
+📌 Goal: Implement an interactive whiteboard using Fabric.js.
+
+Create /components/Canvas.tsx.
+
+Initialize Fabric.js to support drawing.
+
+Add shapes, text, colors, and eraser tools.
+
+# 5. Integrate WebSockets into the Frontend
+
+📌 Goal: Sync the whiteboard in real-time.
+
+Install socket.io-client:
+
+npm install socket.io-client
+Connect the frontend to the backend WebSocket server.
+
+Sync drawing data with other users.
+
+# 6. Implement Zustand for State Management
+
+📌 Goal: Store and manage whiteboard state.
+
+Install Zustand:
+
+npm install zustand
+Create a Zustand store for board state.
+
+Sync board state across sessions.
+
+# 7. Save & Load Whiteboards (Database Integration)
+
+📌 Goal: Store and retrieve whiteboard sessions using Prisma.
+
+Save whiteboard state to PostgreSQL.
+
+Fetch previously saved whiteboards.
+
+# 8. Export Whiteboard as Image
+
+📌 Goal: Allow users to download the whiteboard.
+
+Convert Fabric.js canvas to an image.
+
+Save the image to Firebase Storage.
+
+# 9. Add Comments & Collaboration Features
+
+📌 Goal: Enable real-time chat & collaboration.
+
+Implement a comments system.
+
+Show user presence indicators (who’s online).
+
+# 10. UI/UX Enhancements
+
+📌 Goal: Improve usability & visuals.
+
+Add undo/redo functionality.
+
+Improve toolbars & controls.
+
+Optimize for mobile responsiveness.
+
+# 11. Deployment
+
+📌 Goal: Deploy frontend & backend.
+
+Frontend: Deploy Next.js app to Vercel.
+
+Backend: Deploy WebSocket server to Render/Fly.io.
+
+Database: Use Supabase/Neon for PostgreSQL.
